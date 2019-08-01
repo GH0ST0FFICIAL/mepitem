@@ -1,0 +1,35 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Generic.master.cs" Inherits="Generic_Generic" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEPBD</title>
+    <link href="../css/bootstrap.css?v={14/version-0}" rel="stylesheet" />
+    <link href="../css/bootstrap-grid.css" rel="stylesheet" />
+    <script src="../jquery/jquery-3.3.1.js"></script>
+    <script src="../jquery/jquery-ui.js"></script>
+    <link href="../select2plugin/select2.min.css?v={10/version-0}" rel="stylesheet" />
+    <script src="../select2plugin/select2.min.js"></script>
+    <link href="../jquery/jquery-ui.css" rel="stylesheet" />
+    <script src="../jquery/jquery.responsivetable.js"></script>
+    <script src="../js/bootstrap.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <footer class="footer position-relative centerdiv">
+        <div class="container">
+            © 2018 - <%= DateTime.Now.Year%> | <span class="text-muted">Developed By <a href="http://solutionnest.info/" target="_blank">Solution Nest</a></span>
+        </div>
+    </footer>
+</body>
+</html>

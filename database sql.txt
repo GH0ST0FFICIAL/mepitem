@@ -1,0 +1,115 @@
+﻿CREATE TABLE [dbo].[tblRole] (
+    [Id]       INT           IDENTITY (1, 1) NOT NULL,
+    [RoleType] VARCHAR (100) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[tblCompanyType] (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [CompanyType] VARCHAR (200) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[tblUserAccount] (
+    [Id]            INT           IDENTITY (1, 1) NOT NULL,
+    [CompanyName]   VARCHAR (200) NULL,
+    [Email]         VARCHAR (300) NULL,
+    [Password]      VARCHAR (MAX) NULL,
+    [Address]       VARCHAR (500) NULL,
+    [Phone]         VARCHAR (20)  NULL,
+    [Website]       VARCHAR (500) NULL,
+    [RoleId]        INT           NULL,
+    [CompanyTypeId] INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_tblUserAccount_ToTable] FOREIGN KEY ([RoleId]) REFERENCES [dbo].[tblRole] ([Id]),
+    CONSTRAINT [FK_tblUserAccount_ToTable_1] FOREIGN KEY ([CompanyTypeId]) REFERENCES [dbo].[tblCompanyType] ([Id])
+);
+
+CREATE TABLE [dbo].[tblSystem] (
+    [Id]    INT           IDENTITY (1, 1) NOT NULL,
+    [Title] VARCHAR (200) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[tblSubSystem] (
+    [Id]       INT           IDENTITY (1, 1) NOT NULL,
+    [Title]    VARCHAR (200) NULL,
+    [SystemId] INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_tblSubSystem_ToTable] FOREIGN KEY ([SystemId]) REFERENCES [dbo].[tblSystem] ([Id])
+);
+
+CREATE TABLE [dbo].[tblItem] (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [Title]       VARCHAR (200) NULL,
+    [SubSystemId] INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_tblItem_ToTable] FOREIGN KEY ([SubSystemId]) REFERENCES [dbo].[tblSubSystem] ([Id])
+);
+
+CREATE TABLE [dbo].[tblSubItem] (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [Title]       VARCHAR (200) NULL,
+    [ItemId]      INT           NULL,
+    [SubSystemId] INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_tblSubItem_ToTable] FOREIGN KEY ([ItemId]) REFERENCES [dbo].[tblItem] ([Id]),
+    CONSTRAINT [FK_tblSubItem_ToTable_1] FOREIGN KEY ([SubSystemId]) REFERENCES [dbo].[tblSubSystem] ([Id])
+);
+
+CREATE TABLE [dbo].[tblCompanyDetails] (
+    [Id]             INT           IDENTITY (1, 1) NOT NULL,
+    [BrandName]      VARCHAR (200) NULL,
+    [MinCapacity]    VARCHAR (20)  NULL,
+    [MaxCapacity]    VARCHAR (20)  NULL,
+    [Catalogue]      VARCHAR (200) NULL,
+    [Specification]  VARCHAR (200) NULL,
+    [CompanyTypeId]  INT           NULL,
+    [UserId]         INT           NULL,
+    [SystemId]       INT           NULL,
+    [SubSystemId]    INT           NULL,
+    [ItemId]         INT           NULL,
+    [SubItemId]      INT           NULL,
+    [SystemTitle]    VARCHAR (200) NULL,
+    [SubSystemTitle] VARCHAR (200) NULL,
+    [ItemTitle]      VARCHAR (200) NULL,
+    [SubItemTitle]   VARCHAR (200) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_tblCompanyDetails_ToTable_1] FOREIGN KEY ([SystemId]) REFERENCES [dbo].[tblSystem] ([Id]) ON UPDATE CASCADE,
+    CONSTRAINT [FK_tblCompanyDetails_ToTable_2] FOREIGN KEY ([SubSystemId]) REFERENCES [dbo].[tblSubSystem] ([Id]) ON UPDATE CASCADE,
+    CONSTRAINT [FK_tblCompanyDetails_ToTable_3] FOREIGN KEY ([ItemId]) REFERENCES [dbo].[tblItem] ([Id]) ON UPDATE CASCADE,
+    CONSTRAINT [FK_tblCompanyDetails_ToTable_4] FOREIGN KEY ([SubItemId]) REFERENCES [dbo].[tblSubItem] ([Id]) ON UPDATE CASCADE,
+    CONSTRAINT [FK_tblCompanyDetails_ToTable] FOREIGN KEY ([UserId]) REFERENCES [dbo].[tblUserAccount] ([Id])
+);
+
+CREATE TABLE [dbo].[tblPost] (
+    [Id]            INT           IDENTITY (1, 1) NOT NULL,
+    [Description]   VARCHAR (MAX) NULL,
+    [PostDate]      DATETIME      NULL,
+    [Status]        VARCHAR (20)  NULL,
+    [Specification] VARCHAR (200) NULL,
+    [UserId]        INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_tblPost_ToTable] FOREIGN KEY ([UserId]) REFERENCES [dbo].[tblUserAccount] ([Id]) ON DELETE CASCADE
+);
+
+CREATE TABLE [dbo].[tblTags] (
+    [Id]     INT           IDENTITY (1, 1) NOT NULL,
+    [Tag]    VARCHAR (200) NULL,
+    [PostId] INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_tblTags_ToTable] FOREIGN KEY ([PostId]) REFERENCES [dbo].[tblPost] ([Id])
+);
+
+CREATE TABLE [dbo].[tblOffer] (
+    [Id]              INT           IDENTITY (1, 1) NOT NULL,
+    [PostId]          INT           NULL,
+    [ClientId]        INT           NULL,
+    [CompanyId]       INT           NULL,
+    [MessageToClient] VARCHAR (MAX) NULL,
+    [OfferDate]       DATETIME      NULL,
+    [Status]          VARCHAR (20)  NULL,
+    [Specification]   VARCHAR (200) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

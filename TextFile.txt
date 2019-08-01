@@ -1,0 +1,163 @@
+﻿sql for sent offers data
+                <div class="gridviewScrollable">
+                    <asp:GridView ID="GridView3" CssClass="table" EmptyDataText="No records to show" runat="server" AutoGenerateColumns="False" AllowPaging="True" GridLines="None" PageSize="20" DataKeyNames="Id" DataSourceID="SqlDataSourceSentOffer">
+                        <Columns>
+                            <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" Visible="False" />
+                            <asp:BoundField DataField="PostId" HeaderText="PostId" SortExpression="PostId" Visible="False" />
+                            <asp:BoundField DataField="ClientId" HeaderText="ClientId" SortExpression="ClientId" Visible="False" />
+                            <asp:BoundField DataField="CompanyId" HeaderText="CompanyId" SortExpression="CompanyId" Visible="False" />
+                            <asp:BoundField DataField="OfferDate" DataFormatString="{0:dd/MM/yyyy}" HeaderText="Offered Date" SortExpression="OfferDate" />
+                            <asp:BoundField DataField="MessageToClient" HeaderText="Message" SortExpression="MessageToClient" />
+                        </Columns>
+                        <PagerStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                    </asp:GridView>
+                    <asp:SqlDataSource ID="SqlDataSourceSentOffer" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+                        SelectCommand="select distinct tblOffer.Id, tblOffer.PostId, tblOffer.ClientId, tblOffer.CompanyId, tblOffer.MessageToClient, 
+                        tblOffer.OfferDate
+
+from tblOffer
+
+where tblOffer.CompanyId = @userid
+
+">
+                        <SelectParameters>
+                            <asp:SessionParameter Name="userid" SessionField="userid" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
+                </div>
+
+
+
+sql for postandoffer gridview1:
+<asp:SqlDataSource ID="SqlDataSourceClientPost" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+                            SelectCommand="select distinct tblPost.Description, tblPost.PostDate, tblPost.UserId, tblPost.Id
+from tblUser, tblTags, tblPost, tblCompanyDetails
+where tblTags.PostId = tblPost.Id
+and (tblTags.Tag = tblCompanyDetails.SystemTitle 
+or tblTags.Tag = tblCompanyDetails.SubSystemTitle 
+or tblTags.Tag = tblCompanyDetails.ItemTitle
+or tblTags.Tag = tblCompanyDetails.SubItemTitle)
+and tblPost.Status != 'Closed'
+and tblCompanyDetails.UserId = @userid
+order by tblPost.PostDate Desc;">
+                            <SelectParameters>
+                                <asp:SessionParameter Name="userid" SessionField="userid" Type="String" />
+                            </SelectParameters>
+                        </asp:SqlDataSource>
+postandoffers gridview1 column:
+                            <Columns>
+                                <asp:TemplateField HeaderText="Id" InsertVisible="False" SortExpression="Id" Visible="False">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("Id") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Post Date" SortExpression="PostDate">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("PostDate", "{0:dd/MM/yyyy}") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Description" SortExpression="Description">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField ShowHeader="False">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"
+                                            CommandName="Details" Text="Details"></asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+
+
+SQL for manual data insert into tables
+
+tblsystem:
+SET IDENTITY_INSERT tblSystem ON
+INSERT INTO tblSystem (Id, Title) VALUES (0, 'Select')
+SET IDENTITY_INSERT tblSystem OFF
+
+tblSubSystem
+SET IDENTITY_INSERT tblSubSystem ON
+INSERT INTO tblSubSystem (Id, Title,SystemId) VALUES (0, 'Select', 0)
+SET IDENTITY_INSERT tblSubSystem OFF
+
+tblItem
+SET IDENTITY_INSERT tblItem ON
+INSERT INTO tblItem (Id, Title,SubSystemId) VALUES (0, 'Select', 0)
+SET IDENTITY_INSERT tblItem OFF
+
+tblSubItem
+SET IDENTITY_INSERT tblSubItem ON
+INSERT INTO tblSubItem (Id, Title,SubSystemId,ItemId) VALUES (0, 'Select', 0, 0)
+SET IDENTITY_INSERT tblSubItem OFF
+
+create post form
+    <div class="container centerdiv">
+        <div class="form-group">
+            <h4 class="text-center">Create Post</h4>
+        </div>
+        <br />
+        <div class="centerdiv">
+            <asp:Panel ID="PanelCreatePost" Visible="true" runat="server">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <asp:Label runat="server" Text="Description"></asp:Label>
+                            <asp:TextBox ID="txtDescription" class="form-control" TextMode="MultiLine" Rows="5" placeholder="Post Description" runat="server">
+                            </asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfdtxtDescription"
+                                runat="server" ErrorMessage="Post Description required" Text="required"
+                                ControlToValidate="txtDescription" Display="Dynamic" ForeColor="Red">
+                            </asp:RequiredFieldValidator>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <asp:Label runat="server" Text="Add Tags"></asp:Label>
+                            <asp:ListBox ID="lstboxAddTag" Rows="6" class="form-control" runat="server"></asp:ListBox>
+                            <asp:LinkButton ID="lbtnAddTag" CausesValidation="false" runat="server" Text="Add Tag" OnClick="lbtnAddTag_Click"></asp:LinkButton>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <asp:Label runat="server" Text="Remove Tags"></asp:Label>
+                            <asp:ListBox ID="lstboxRemoveTag" Rows="6" class="form-control" runat="server"></asp:ListBox>
+                            <asp:RequiredFieldValidator ID="rfdlstboxRemoveTag"
+                                runat="server" ErrorMessage="Tags required" Text="required"
+                                ControlToValidate="lstboxRemoveTag" Display="Dynamic" ForeColor="Red">
+                            </asp:RequiredFieldValidator>
+                            <asp:LinkButton ID="lbtnRemoveTage" CausesValidation="false" runat="server" Text="Remove Tag"></asp:LinkButton>
+                        </div>
+                    </div>
+                </div>
+                <asp:Panel ID="PanelSubmitButton" Visible="true" runat="server">
+                    <div class="form-group">
+                        <asp:Button ID="btnSubmit" class="btn btn-primary btn-sm" runat="server" Text="Submit"
+                            OnClientClick="if ( ! Done()) return false;"
+                            meta:resourcekey="btnDoneResource1" />
+                    </div>
+                </asp:Panel>
+                <asp:LinkButton ID="lbtnFinishInsert" CausesValidation="false" runat="server">Done</asp:LinkButton>
+            </asp:Panel>
+            <asp:Panel ID="PanelUpdateButton" Visible="false" runat="server">
+                <div class="form-group">
+                    <asp:Button ID="btnUpdate" class="btn btn-primary btn-sm" runat="server" Text="Update"
+                        OnClientClick="if ( ! Done()) return false;"
+                        meta:resourcekey="btnDoneResource1" />
+                    <asp:Button ID="btnCancel" CausesValidation="false" class="btn btn-secondary btn-sm" runat="server" Text="Cancel" />
+                </div>
+                <asp:LinkButton ID="lbtnFinishUpdate" CausesValidation="false" runat="server">Done</asp:LinkButton>
+
+            </asp:Panel>
+            <asp:Panel ID="PanelData" Visible="true" runat="server">
+                <asp:LinkButton ID="lbtnInsert" runat="server">Insert New</asp:LinkButton>
+                <div class="gridviewScrollable">
+                    <asp:GridView ID="GridView1" CssClass="table table-sm text-nowrap" EmptyDataText="No records to show" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" AllowPaging="True" GridLines="None" PageSize="20">
+                        <PagerStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                    </asp:GridView>
+                </div>
+            </asp:Panel>
+        </div>
+    </div>
+

@@ -1,0 +1,64 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Consultant.master.cs" Inherits="Consultant_Consultant" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEPBD</title>
+    <link href="../css/bootstrap.css?v={20/version-0}" rel="stylesheet" />
+    <link href="../css/bootstrap-grid.css" rel="stylesheet" />
+    <script src="../jquery/jquery-3.3.1.js"></script>
+    <script src="../jquery/jquery-ui.js"></script>
+    <script src="../jquery/jquery.quicksearch.js"></script>
+    <link href="../select2plugin/select2.min.css?v={10/version-0}" rel="stylesheet" />
+    <script src="../select2plugin/select2.min.js"></script>
+    <link href="../jquery/jquery-ui.css" rel="stylesheet" />
+    <script src="../jquery/jquery.responsivetable.js"></script>
+    <script src="../js/bootstrap.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <asp:Label ID="lblUserName" CssClass="text-uppercase" runat="server" Text="MEPBD"></asp:Label></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="Default.aspx">Dashboard <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="ServiceDetails.aspx">Service Details</a>
+                        <a class="dropdown-item" href="ClientPost.aspx">Post and Offer</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="AccountSettings.aspx">Account Settings</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <a id="btnLogout" causesvalidation="false" runat="server" class="btn btn-outline-primary my-2 my-sm-0">Logout</a>
+            </form>
+        </div>
+    </nav>
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <footer class="footer position-relative centerdiv">
+        <div class="container">
+            © 2018 - <%= DateTime.Now.Year%> | <span class="text-muted">Developed By <a href="http://solutionnest.info/" target="_blank">Solution Nest</a></span>
+        </div>
+    </footer>
+</body>
+</html>

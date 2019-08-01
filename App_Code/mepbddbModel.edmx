@@ -1,0 +1,969 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="mepbddbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCompanyDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrandName" Type="varchar" MaxLength="200" />
+          <Property Name="MinCapacity" Type="varchar" MaxLength="20" />
+          <Property Name="MaxCapacity" Type="varchar" MaxLength="20" />
+          <Property Name="Catalogue" Type="varchar" MaxLength="200" />
+          <Property Name="Specification" Type="varchar" MaxLength="200" />
+          <Property Name="CompanyTypeId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="SystemId" Type="int" />
+          <Property Name="SubSystemId" Type="int" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="SubItemId" Type="int" />
+          <Property Name="SystemTitle" Type="varchar" MaxLength="200" />
+          <Property Name="SubSystemTitle" Type="varchar" MaxLength="200" />
+          <Property Name="ItemTitle" Type="varchar" MaxLength="200" />
+          <Property Name="SubItemTitle" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tblCompanyType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyType" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tblItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="200" />
+          <Property Name="SubSystemId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblOffer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="MessageToClient" Type="varchar(max)" />
+          <Property Name="OfferDate" Type="datetime" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="Specification" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tblOfferNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OfferId" Type="int" />
+          <Property Name="PostId" Type="int" />
+          <Property Name="NotificationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblPost">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="PostDate" Type="datetime" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="Specification" Type="varchar" MaxLength="200" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblPostNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostId" Type="int" />
+          <Property Name="NotificationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleType" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblSubItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="200" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="SubSystemId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblSubSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="200" />
+          <Property Name="SystemId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tblTags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tag" Type="varchar" MaxLength="200" />
+          <Property Name="PostId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblUserAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="200" />
+          <Property Name="Email" Type="varchar" MaxLength="300" />
+          <Property Name="Password" Type="varchar(max)" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Phone" Type="varchar" MaxLength="200" />
+          <Property Name="Website" Type="varchar" MaxLength="500" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="CompanyTypeId" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblCompanyDetails_ToTable">
+          <End Role="tblUserAccount" Type="Self.tblUserAccount" Multiplicity="0..1" />
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCompanyDetails">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCompanyDetails_ToTable_1">
+          <End Role="tblSystem" Type="Self.tblSystem" Multiplicity="0..1" />
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCompanyDetails">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCompanyDetails_ToTable_2">
+          <End Role="tblSubSystem" Type="Self.tblSubSystem" Multiplicity="0..1" />
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSubSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCompanyDetails">
+              <PropertyRef Name="SubSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCompanyDetails_ToTable_3">
+          <End Role="tblItem" Type="Self.tblItem" Multiplicity="0..1" />
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCompanyDetails">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCompanyDetails_ToTable_4">
+          <End Role="tblSubItem" Type="Self.tblSubItem" Multiplicity="0..1" />
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSubItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCompanyDetails">
+              <PropertyRef Name="SubItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblItem_ToTable">
+          <End Role="tblSubSystem" Type="Self.tblSubSystem" Multiplicity="0..1" />
+          <End Role="tblItem" Type="Self.tblItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSubSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblItem">
+              <PropertyRef Name="SubSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_ToTable">
+          <End Role="tblUserAccount" Type="Self.tblUserAccount" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSubItem_ToTable">
+          <End Role="tblItem" Type="Self.tblItem" Multiplicity="0..1" />
+          <End Role="tblSubItem" Type="Self.tblSubItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSubItem">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSubItem_ToTable_1">
+          <End Role="tblSubSystem" Type="Self.tblSubSystem" Multiplicity="0..1" />
+          <End Role="tblSubItem" Type="Self.tblSubItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSubSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSubItem">
+              <PropertyRef Name="SubSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSubSystem_ToTable">
+          <End Role="tblSystem" Type="Self.tblSystem" Multiplicity="0..1" />
+          <End Role="tblSubSystem" Type="Self.tblSubSystem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSubSystem">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTags_ToTable">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblTags" Type="Self.tblTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblTags">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUserAccount_ToTable">
+          <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+          <End Role="tblUserAccount" Type="Self.tblUserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUserAccount">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUserAccount_ToTable_1">
+          <End Role="tblCompanyType" Type="Self.tblCompanyType" Multiplicity="0..1" />
+          <End Role="tblUserAccount" Type="Self.tblUserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCompanyType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUserAccount">
+              <PropertyRef Name="CompanyTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spGetBrandName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetItemTitle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetMaxCapacity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetMinCapacity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetSubItemTitle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetSubSystemTitle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetSystemTitle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="mepbddbModelStoreContainer">
+          <EntitySet Name="tblCompanyDetails" EntityType="Self.tblCompanyDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCompanyType" EntityType="Self.tblCompanyType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblItem" EntityType="Self.tblItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOffer" EntityType="Self.tblOffer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOfferNotification" EntityType="Self.tblOfferNotification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPostNotification" EntityType="Self.tblPostNotification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSubItem" EntityType="Self.tblSubItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSubSystem" EntityType="Self.tblSubSystem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSystem" EntityType="Self.tblSystem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTags" EntityType="Self.tblTags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUserAccount" EntityType="Self.tblUserAccount" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblCompanyDetails_ToTable" Association="Self.FK_tblCompanyDetails_ToTable">
+            <End Role="tblUserAccount" EntitySet="tblUserAccount" />
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompanyDetails_ToTable_1" Association="Self.FK_tblCompanyDetails_ToTable_1">
+            <End Role="tblSystem" EntitySet="tblSystem" />
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompanyDetails_ToTable_2" Association="Self.FK_tblCompanyDetails_ToTable_2">
+            <End Role="tblSubSystem" EntitySet="tblSubSystem" />
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompanyDetails_ToTable_3" Association="Self.FK_tblCompanyDetails_ToTable_3">
+            <End Role="tblItem" EntitySet="tblItem" />
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompanyDetails_ToTable_4" Association="Self.FK_tblCompanyDetails_ToTable_4">
+            <End Role="tblSubItem" EntitySet="tblSubItem" />
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblItem_ToTable" Association="Self.FK_tblItem_ToTable">
+            <End Role="tblSubSystem" EntitySet="tblSubSystem" />
+            <End Role="tblItem" EntitySet="tblItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_ToTable" Association="Self.FK_tblPost_ToTable">
+            <End Role="tblUserAccount" EntitySet="tblUserAccount" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSubItem_ToTable" Association="Self.FK_tblSubItem_ToTable">
+            <End Role="tblItem" EntitySet="tblItem" />
+            <End Role="tblSubItem" EntitySet="tblSubItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSubItem_ToTable_1" Association="Self.FK_tblSubItem_ToTable_1">
+            <End Role="tblSubSystem" EntitySet="tblSubSystem" />
+            <End Role="tblSubItem" EntitySet="tblSubItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSubSystem_ToTable" Association="Self.FK_tblSubSystem_ToTable">
+            <End Role="tblSystem" EntitySet="tblSystem" />
+            <End Role="tblSubSystem" EntitySet="tblSubSystem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTags_ToTable" Association="Self.FK_tblTags_ToTable">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblTags" EntitySet="tblTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserAccount_ToTable" Association="Self.FK_tblUserAccount_ToTable">
+            <End Role="tblRole" EntitySet="tblRole" />
+            <End Role="tblUserAccount" EntitySet="tblUserAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserAccount_ToTable_1" Association="Self.FK_tblUserAccount_ToTable_1">
+            <End Role="tblCompanyType" EntitySet="tblCompanyType" />
+            <End Role="tblUserAccount" EntitySet="tblUserAccount" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mepbddbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCompanyDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MinCapacity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MaxCapacity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Catalogue" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Specification" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyTypeId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="SystemId" Type="Int32" />
+          <Property Name="SubSystemId" Type="Int32" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="SubItemId" Type="Int32" />
+          <Property Name="SystemTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SubSystemTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ItemTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SubItemTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblUserAccount" Relationship="Self.FK_tblCompanyDetails_ToTable" FromRole="tblCompanyDetails" ToRole="tblUserAccount" />
+          <NavigationProperty Name="tblSystem" Relationship="Self.FK_tblCompanyDetails_ToTable_1" FromRole="tblCompanyDetails" ToRole="tblSystem" />
+          <NavigationProperty Name="tblSubSystem" Relationship="Self.FK_tblCompanyDetails_ToTable_2" FromRole="tblCompanyDetails" ToRole="tblSubSystem" />
+          <NavigationProperty Name="tblItem" Relationship="Self.FK_tblCompanyDetails_ToTable_3" FromRole="tblCompanyDetails" ToRole="tblItem" />
+          <NavigationProperty Name="tblSubItem" Relationship="Self.FK_tblCompanyDetails_ToTable_4" FromRole="tblCompanyDetails" ToRole="tblSubItem" />
+        </EntityType>
+        <EntityType Name="tblCompanyType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblUserAccounts" Relationship="Self.FK_tblUserAccount_ToTable_1" FromRole="tblCompanyType" ToRole="tblUserAccount" />
+        </EntityType>
+        <EntityType Name="tblItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SubSystemId" Type="Int32" />
+          <NavigationProperty Name="tblCompanyDetails" Relationship="Self.FK_tblCompanyDetails_ToTable_3" FromRole="tblItem" ToRole="tblCompanyDetails" />
+          <NavigationProperty Name="tblSubSystem" Relationship="Self.FK_tblItem_ToTable" FromRole="tblItem" ToRole="tblSubSystem" />
+          <NavigationProperty Name="tblSubItems" Relationship="Self.FK_tblSubItem_ToTable" FromRole="tblItem" ToRole="tblSubItem" />
+        </EntityType>
+        <EntityType Name="tblOffer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="MessageToClient" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OfferDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Specification" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblPost">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PostDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Specification" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="tblUserAccount" Relationship="Self.FK_tblPost_ToTable" FromRole="tblPost" ToRole="tblUserAccount" />
+          <NavigationProperty Name="tblTags" Relationship="Self.FK_tblTags_ToTable" FromRole="tblPost" ToRole="tblTags" />
+        </EntityType>
+        <EntityType Name="tblRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblUserAccounts" Relationship="Self.FK_tblUserAccount_ToTable" FromRole="tblRole" ToRole="tblUserAccount" />
+        </EntityType>
+        <EntityType Name="tblSubItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="SubSystemId" Type="Int32" />
+          <NavigationProperty Name="tblCompanyDetails" Relationship="Self.FK_tblCompanyDetails_ToTable_4" FromRole="tblSubItem" ToRole="tblCompanyDetails" />
+          <NavigationProperty Name="tblItem" Relationship="Self.FK_tblSubItem_ToTable" FromRole="tblSubItem" ToRole="tblItem" />
+          <NavigationProperty Name="tblSubSystem" Relationship="Self.FK_tblSubItem_ToTable_1" FromRole="tblSubItem" ToRole="tblSubSystem" />
+        </EntityType>
+        <EntityType Name="tblSubSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SystemId" Type="Int32" />
+          <NavigationProperty Name="tblCompanyDetails" Relationship="Self.FK_tblCompanyDetails_ToTable_2" FromRole="tblSubSystem" ToRole="tblCompanyDetails" />
+          <NavigationProperty Name="tblItems" Relationship="Self.FK_tblItem_ToTable" FromRole="tblSubSystem" ToRole="tblItem" />
+          <NavigationProperty Name="tblSubItems" Relationship="Self.FK_tblSubItem_ToTable_1" FromRole="tblSubSystem" ToRole="tblSubItem" />
+          <NavigationProperty Name="tblSystem" Relationship="Self.FK_tblSubSystem_ToTable" FromRole="tblSubSystem" ToRole="tblSystem" />
+        </EntityType>
+        <EntityType Name="tblSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCompanyDetails" Relationship="Self.FK_tblCompanyDetails_ToTable_1" FromRole="tblSystem" ToRole="tblCompanyDetails" />
+          <NavigationProperty Name="tblSubSystems" Relationship="Self.FK_tblSubSystem_ToTable" FromRole="tblSystem" ToRole="tblSubSystem" />
+        </EntityType>
+        <EntityType Name="tblTag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tag" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PostId" Type="Int32" />
+          <NavigationProperty Name="tblPost" Relationship="Self.FK_tblTags_ToTable" FromRole="tblTags" ToRole="tblPost" />
+        </EntityType>
+        <EntityType Name="tblUserAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="CompanyTypeId" Type="Int32" />
+          <NavigationProperty Name="tblCompanyDetails" Relationship="Self.FK_tblCompanyDetails_ToTable" FromRole="tblUserAccount" ToRole="tblCompanyDetails" />
+          <NavigationProperty Name="tblCompanyType" Relationship="Self.FK_tblUserAccount_ToTable_1" FromRole="tblUserAccount" ToRole="tblCompanyType" />
+          <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_ToTable" FromRole="tblUserAccount" ToRole="tblPost" />
+          <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUserAccount_ToTable" FromRole="tblUserAccount" ToRole="tblRole" />
+        </EntityType>
+        <Association Name="FK_tblCompanyDetails_ToTable">
+          <End Role="tblUserAccount" Type="Self.tblUserAccount" Multiplicity="0..1" />
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCompanyDetails">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCompanyDetails_ToTable_1">
+          <End Role="tblSystem" Type="Self.tblSystem" Multiplicity="0..1" />
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCompanyDetails">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCompanyDetails_ToTable_2">
+          <End Role="tblSubSystem" Type="Self.tblSubSystem" Multiplicity="0..1" />
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSubSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCompanyDetails">
+              <PropertyRef Name="SubSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCompanyDetails_ToTable_3">
+          <End Role="tblItem" Type="Self.tblItem" Multiplicity="0..1" />
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCompanyDetails">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCompanyDetails_ToTable_4">
+          <End Role="tblSubItem" Type="Self.tblSubItem" Multiplicity="0..1" />
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSubItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCompanyDetails">
+              <PropertyRef Name="SubItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUserAccount_ToTable_1">
+          <End Role="tblCompanyType" Type="Self.tblCompanyType" Multiplicity="0..1" />
+          <End Role="tblUserAccount" Type="Self.tblUserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCompanyType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUserAccount">
+              <PropertyRef Name="CompanyTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblItem_ToTable">
+          <End Role="tblSubSystem" Type="Self.tblSubSystem" Multiplicity="0..1" />
+          <End Role="tblItem" Type="Self.tblItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSubSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblItem">
+              <PropertyRef Name="SubSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSubItem_ToTable">
+          <End Role="tblItem" Type="Self.tblItem" Multiplicity="0..1" />
+          <End Role="tblSubItem" Type="Self.tblSubItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSubItem">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_ToTable">
+          <End Role="tblUserAccount" Type="Self.tblUserAccount" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTags_ToTable">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblTags" Type="Self.tblTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblTags">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUserAccount_ToTable">
+          <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+          <End Role="tblUserAccount" Type="Self.tblUserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUserAccount">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSubItem_ToTable_1">
+          <End Role="tblSubSystem" Type="Self.tblSubSystem" Multiplicity="0..1" />
+          <End Role="tblSubItem" Type="Self.tblSubItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSubSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSubItem">
+              <PropertyRef Name="SubSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSubSystem_ToTable">
+          <End Role="tblSystem" Type="Self.tblSystem" Multiplicity="0..1" />
+          <End Role="tblSubSystem" Type="Self.tblSubSystem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSubSystem">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mepbddbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCompanyDetails" EntityType="Self.tblCompanyDetail" />
+          <EntitySet Name="tblCompanyTypes" EntityType="Self.tblCompanyType" />
+          <EntitySet Name="tblItems" EntityType="Self.tblItem" />
+          <EntitySet Name="tblOffers" EntityType="Self.tblOffer" />
+          <EntitySet Name="tblPosts" EntityType="Self.tblPost" />
+          <EntitySet Name="tblRoles" EntityType="Self.tblRole" />
+          <EntitySet Name="tblSubItems" EntityType="Self.tblSubItem" />
+          <EntitySet Name="tblSubSystems" EntityType="Self.tblSubSystem" />
+          <EntitySet Name="tblSystems" EntityType="Self.tblSystem" />
+          <EntitySet Name="tblTags" EntityType="Self.tblTag" />
+          <EntitySet Name="tblUserAccounts" EntityType="Self.tblUserAccount" />
+          <AssociationSet Name="FK_tblCompanyDetails_ToTable" Association="Self.FK_tblCompanyDetails_ToTable">
+            <End Role="tblUserAccount" EntitySet="tblUserAccounts" />
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompanyDetails_ToTable_1" Association="Self.FK_tblCompanyDetails_ToTable_1">
+            <End Role="tblSystem" EntitySet="tblSystems" />
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompanyDetails_ToTable_2" Association="Self.FK_tblCompanyDetails_ToTable_2">
+            <End Role="tblSubSystem" EntitySet="tblSubSystems" />
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompanyDetails_ToTable_3" Association="Self.FK_tblCompanyDetails_ToTable_3">
+            <End Role="tblItem" EntitySet="tblItems" />
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompanyDetails_ToTable_4" Association="Self.FK_tblCompanyDetails_ToTable_4">
+            <End Role="tblSubItem" EntitySet="tblSubItems" />
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserAccount_ToTable_1" Association="Self.FK_tblUserAccount_ToTable_1">
+            <End Role="tblCompanyType" EntitySet="tblCompanyTypes" />
+            <End Role="tblUserAccount" EntitySet="tblUserAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblItem_ToTable" Association="Self.FK_tblItem_ToTable">
+            <End Role="tblSubSystem" EntitySet="tblSubSystems" />
+            <End Role="tblItem" EntitySet="tblItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSubItem_ToTable" Association="Self.FK_tblSubItem_ToTable">
+            <End Role="tblItem" EntitySet="tblItems" />
+            <End Role="tblSubItem" EntitySet="tblSubItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_ToTable" Association="Self.FK_tblPost_ToTable">
+            <End Role="tblUserAccount" EntitySet="tblUserAccounts" />
+            <End Role="tblPost" EntitySet="tblPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTags_ToTable" Association="Self.FK_tblTags_ToTable">
+            <End Role="tblPost" EntitySet="tblPosts" />
+            <End Role="tblTags" EntitySet="tblTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserAccount_ToTable" Association="Self.FK_tblUserAccount_ToTable">
+            <End Role="tblRole" EntitySet="tblRoles" />
+            <End Role="tblUserAccount" EntitySet="tblUserAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSubItem_ToTable_1" Association="Self.FK_tblSubItem_ToTable_1">
+            <End Role="tblSubSystem" EntitySet="tblSubSystems" />
+            <End Role="tblSubItem" EntitySet="tblSubItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSubSystem_ToTable" Association="Self.FK_tblSubSystem_ToTable">
+            <End Role="tblSystem" EntitySet="tblSystems" />
+            <End Role="tblSubSystem" EntitySet="tblSubSystems" />
+          </AssociationSet>
+          <FunctionImport Name="spGetBrandName" ReturnType="Collection(String)">
+          <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetItemTitle" ReturnType="Collection(String)">
+          <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetMaxCapacity" ReturnType="Collection(String)">
+          <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetMinCapacity" ReturnType="Collection(String)">
+          <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetSubItemTitle" ReturnType="Collection(String)">
+          <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetSubSystemTitle" ReturnType="Collection(String)">
+          <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetSystemTitle" ReturnType="Collection(String)">
+          <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tblOfferNotifications" EntityType="mepbddbModel.tblOfferNotification" />
+          <EntitySet Name="tblPostNotifications" EntityType="mepbddbModel.tblPostNotification" />
+        </EntityContainer>
+        <EntityType Name="tblOfferNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OfferId" Type="Int32" />
+          <Property Name="PostId" Type="Int32" />
+          <Property Name="NotificationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblPostNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostId" Type="Int32" />
+          <Property Name="NotificationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mepbddbModelStoreContainer" CdmEntityContainer="mepbddbEntities">
+          <EntitySetMapping Name="tblCompanyDetails">
+            <EntityTypeMapping TypeName="mepbddbModel.tblCompanyDetail">
+              <MappingFragment StoreEntitySet="tblCompanyDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="MinCapacity" ColumnName="MinCapacity" />
+                <ScalarProperty Name="MaxCapacity" ColumnName="MaxCapacity" />
+                <ScalarProperty Name="Catalogue" ColumnName="Catalogue" />
+                <ScalarProperty Name="Specification" ColumnName="Specification" />
+                <ScalarProperty Name="CompanyTypeId" ColumnName="CompanyTypeId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+                <ScalarProperty Name="SubSystemId" ColumnName="SubSystemId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="SubItemId" ColumnName="SubItemId" />
+                <ScalarProperty Name="SystemTitle" ColumnName="SystemTitle" />
+                <ScalarProperty Name="SubSystemTitle" ColumnName="SubSystemTitle" />
+                <ScalarProperty Name="ItemTitle" ColumnName="ItemTitle" />
+                <ScalarProperty Name="SubItemTitle" ColumnName="SubItemTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCompanyTypes">
+            <EntityTypeMapping TypeName="mepbddbModel.tblCompanyType">
+              <MappingFragment StoreEntitySet="tblCompanyType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CompanyType" ColumnName="CompanyType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblItems">
+            <EntityTypeMapping TypeName="mepbddbModel.tblItem">
+              <MappingFragment StoreEntitySet="tblItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SubSystemId" ColumnName="SubSystemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOffers">
+            <EntityTypeMapping TypeName="mepbddbModel.tblOffer">
+              <MappingFragment StoreEntitySet="tblOffer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="MessageToClient" ColumnName="MessageToClient" />
+                <ScalarProperty Name="OfferDate" ColumnName="OfferDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Specification" ColumnName="Specification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPosts">
+            <EntityTypeMapping TypeName="mepbddbModel.tblPost">
+              <MappingFragment StoreEntitySet="tblPost">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Specification" ColumnName="Specification" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRoles">
+            <EntityTypeMapping TypeName="mepbddbModel.tblRole">
+              <MappingFragment StoreEntitySet="tblRole">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleType" ColumnName="RoleType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSubItems">
+            <EntityTypeMapping TypeName="mepbddbModel.tblSubItem">
+              <MappingFragment StoreEntitySet="tblSubItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="SubSystemId" ColumnName="SubSystemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSubSystems">
+            <EntityTypeMapping TypeName="mepbddbModel.tblSubSystem">
+              <MappingFragment StoreEntitySet="tblSubSystem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSystems">
+            <EntityTypeMapping TypeName="mepbddbModel.tblSystem">
+              <MappingFragment StoreEntitySet="tblSystem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTags">
+            <EntityTypeMapping TypeName="mepbddbModel.tblTag">
+              <MappingFragment StoreEntitySet="tblTags">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUserAccounts">
+            <EntityTypeMapping TypeName="mepbddbModel.tblUserAccount">
+              <MappingFragment StoreEntitySet="tblUserAccount">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CompanyTypeId" ColumnName="CompanyTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spGetBrandName" FunctionName="mepbddbModel.Store.spGetBrandName" />
+          <FunctionImportMapping FunctionImportName="spGetItemTitle" FunctionName="mepbddbModel.Store.spGetItemTitle" />
+          <FunctionImportMapping FunctionImportName="spGetMaxCapacity" FunctionName="mepbddbModel.Store.spGetMaxCapacity" />
+          <FunctionImportMapping FunctionImportName="spGetMinCapacity" FunctionName="mepbddbModel.Store.spGetMinCapacity" />
+          <FunctionImportMapping FunctionImportName="spGetSubItemTitle" FunctionName="mepbddbModel.Store.spGetSubItemTitle" />
+          <FunctionImportMapping FunctionImportName="spGetSubSystemTitle" FunctionName="mepbddbModel.Store.spGetSubSystemTitle" />
+          <FunctionImportMapping FunctionImportName="spGetSystemTitle" FunctionName="mepbddbModel.Store.spGetSystemTitle" />
+          <EntitySetMapping Name="tblOfferNotifications">
+            <EntityTypeMapping TypeName="mepbddbModel.tblOfferNotification">
+              <MappingFragment StoreEntitySet="tblOfferNotification">
+                <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="OfferId" ColumnName="OfferId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPostNotifications">
+            <EntityTypeMapping TypeName="mepbddbModel.tblPostNotification">
+              <MappingFragment StoreEntitySet="tblPostNotification">
+                <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
